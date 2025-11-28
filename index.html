@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Minimal Dice PWA</title>
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="stylesheet" href="./style.css" />
+   <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
+  <link rel="apple-touch-icon" href="./favicon.png">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <button id="addDie" class="icon-btn" aria-label="Add die">＋</button>
+      <div class="title">Dice</div>
+      <button id="rollAll" class="action-btn">Roll all</button>
+    </header>
+
+    <section id="diceList" class="dice-list" aria-live="polite">
+      <!-- dice blocks will be injected here -->
+    </section>
+
+    <footer class="footer">
+      <div class="sum">Total: <span id="totalSum">—</span></div>
+      <div class="hint">Local and offline</div>
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+  <script>
+    // register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(()=>{ /* silent */ });
+    }
+  </script>
+</body>
+</html>

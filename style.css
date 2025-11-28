@@ -1,0 +1,188 @@
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --muted: #bdbdbd;
+  --accent: #111;
+  --radius: 14px;
+  --btn-h: 56px;
+  --gap: 12px;
+  font-family: -apple-system, "SF Pro Text", "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  padding:16px;
+}
+
+.app{
+  width:100%;
+  max-width:780px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height:calc(100vh - 32px);
+}
+
+/* Top bar */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.title{font-size:14px; color:var(--muted)}
+.icon-btn, .action-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.06);
+  color:var(--fg);
+  padding:8px 12px;
+  border-radius:10px;
+  min-width:44px;
+  min-height:44px;
+  font-size:18px;
+}
+.action-btn{padding:10px 14px}
+.icon-btn[disabled], .action-btn[disabled]{opacity:0.35}
+
+/* Dice list */
+.dice-list{
+  display:flex;
+  flex-direction:column-reverse; /* new die added on top visually (append -> reversed) */
+  gap:14px;
+  align-items:center;
+  justify-content:flex-start;
+  flex:1;
+  padding-top:10px;
+}
+
+/* die block */
+.die {
+  width:100%;
+  max-width:720px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.06);
+  padding:16px;
+  background:transparent;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  transition: background 180ms ease, transform 120ms ease, color 180ms ease;
+}
+
+/* inverted (final) */
+.die.inverted{
+  background:var(--fg);
+  color:var(--bg);
+  border-color: rgba(0,0,0,0.12);
+}
+
+/* header row */
+.die-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.die-label{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.remove-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.06);
+  padding:6px 10px;
+  border-radius:10px;
+}
+
+/* big roll button (or type selector area) */
+.die-main{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.roll-btn{
+  width:80%;
+  height:var(--btn-h);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  letter-spacing:1px;
+  user-select:none;
+  border:1px solid rgba(255,255,255,0.06);
+  transition: transform 120ms cubic-bezier(.2,.9,.2,1), opacity 120ms;
+  background:transparent;
+  color:inherit;
+}
+.roll-btn:active{ transform: scale(.90) }
+.roll-btn[aria-busy="true"]{ cursor:progress; opacity:0.95 }
+
+/* die type chooser (hidden during rolling) */
+.type-chooser{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.type-btn{
+  min-width:44px;
+  height:44px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:transparent;
+  color:inherit;
+  font-size:16px;
+}
+.type-btn.selected{
+  background:var(--fg);
+  color:var(--bg);
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* small hint */
+.hint{
+  font-size:12px;
+  color:var(--muted);
+  text-align:right;
+}
+
+/* footer */
+.footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+}
+.sum{font-weight:600}
+
+/* subtle press animation on roll */
+.roll-press {
+  animation: press .24s ease;
+}
+@keyframes press {
+  0%{ transform: scale(1) }
+  50%{ transform: scale(0.90) }
+  100%{ transform: scale(1) }
+}
+
+/* responsive tweaks */
+@media (max-width:480px){
+  .roll-btn{ font-size:26px; height:60px }
+  .type-btn{ min-width:40px; height:40px; font-size:15px }
+}
